@@ -1,0 +1,5 @@
+1
+2
+3
+G:\Rt\VS\TelegramBot4\messages_from_db.txt
+2

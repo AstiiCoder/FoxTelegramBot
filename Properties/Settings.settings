@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FoxTeleBo.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="WindowPosition" Type="System.Windows.Rect" Scope="User">
+      <Value Profile="(Default)">100,100,300,600</Value>
+    </Setting>
+    <Setting Name="ServerName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">FH</Value>
+    </Setting>
+    <Setting Name="DelayAnswer" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
+    <Setting Name="DatabaseName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Base</Value>
+    </Setting>
+    <Setting Name="SignalFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\test.txt</Value>
+    </Setting>
+    <Setting Name="LastMesIDFromDB" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="SignalFreq" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
+    <Setting Name="RegistryKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Token</Value>
+    </Setting>
+    <Setting Name="FoxGroupIdChat" Type="System.Int64" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="CreatorIdChat" Type="System.Int64" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

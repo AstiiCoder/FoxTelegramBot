@@ -1,0 +1,200 @@
+﻿<Window x:Class="FoxTeleBo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:Extenders="clr-namespace:FoxTeleBo"
+        xmlns:local="clr-namespace:FoxTeleBo"
+        mc:Ignorable="d"
+        Title="ЛиС - Телеграм бот" 
+        MinHeight="450" 
+        MinWidth="800" 
+        Closing="Window_Closing" 
+        Initialized="Window_Initialized" StateChanged="Window_StateChanged" >
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Button.Background" Value="White" />
+            <Setter Property="Button.Foreground" Value="Gray" />
+            <Setter Property="Button.FontFamily" Value="Andy" />
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="LayoutRoot">
+        <tb:TaskbarIcon x:Name="TrayIcon" Visibility="Hidden" ToolTipText="ЛиС Телеграм бот" IconSource="telegram_logo_mint_icon.ico" TrayLeftMouseDown="TaskbarIcon_TrayLeftMouseDown"/>
+        <ToggleButton Width="32" Height="32" Margin="7,7,0,0"  Panel.ZIndex="3" VerticalAlignment="Top" HorizontalAlignment="Left" ToolTip="Меню настроек" Click="ToggleButton_Click" MouseLeave="ToggleButton_MouseLeave">
+            <StackPanel>
+                <Image Source="show_menu_22x22.png" Stretch="None"/>
+            </StackPanel>
+            <ToggleButton.Triggers>
+                <EventTrigger RoutedEvent="ToggleButton.Checked">
+                    <BeginStoryboard>
+                        <Storyboard >
+                            <DoubleAnimation Storyboard.TargetName="MenuDockPanel" 
+                                         Storyboard.TargetProperty="Opacity"
+                                         From="0" To="1" 
+                                         Duration="0:0:0.8"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="MenuDockPanel" 
+                                        Storyboard.TargetProperty="Opacity"
+                                        From="1" To="0" 
+                                        Duration="0:0:0.8"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </ToggleButton.Triggers>
+        </ToggleButton>
+        <DockPanel x:Name="MenuDockPanel"  Background="#FFD3F67B" Opacity="0" Panel.ZIndex="2" HorizontalAlignment="Left" Width="200" Visibility="Collapsed">
+            <Border x:Name="Menu" CornerRadius="0,0,0,60">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                        <GradientStop Color="#42A5F5" Offset="0" />
+                        <GradientStop Color="#BDBDBD" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="47"/>
+                        <RowDefinition Height="250"/>
+                        <RowDefinition Height="200*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="1">
+                        <StackPanel Margin="5 0 0 0">
+                            <Label Content="Сервер" Height="26" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+                            <TextBox x:Name="TextBox_ServerName" HorizontalAlignment="Stretch" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_ServerName_TextChanged" ToolTip="введите имя сервера" />
+                            <Label Content="База данных" Height="26" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+                            <TextBox x:Name="TextBox_DatabaseName" HorizontalAlignment="Stretch" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_DatabaseName_TextChanged" ToolTip="введите имя БД"/>
+                            <Label Content="Задержка ответа бота (мс)" HorizontalAlignment="Stretch" VerticalAlignment="Top"  />
+                            <TextBox x:Name="TextBox_DelayAnswer" HorizontalAlignment="Stretch" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_DelayAnswer_TextChanged" ToolTip="введите задержку в мс."/>
+                            <Label Content="Сигнальный файл" HorizontalAlignment="Stretch" VerticalAlignment="Top"  />
+                            <TextBox x:Name="TextBox_SignalFile" HorizontalAlignment="Stretch" MinHeight="23" Height="auto" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_SignalFile_TextChanged" ToolTip="введите полное имя файла"/>
+                            <Label Content="Частота опроса файла (с)" HorizontalAlignment="Stretch" VerticalAlignment="Top"  />
+                            <TextBox x:Name="TextBox_SignalFreq" HorizontalAlignment="Stretch" MinHeight="23" Height="auto" TextWrapping="Wrap" Text="" VerticalAlignment="Top" TextChanged="TextBox_SignalFreq_TextChanged" ToolTip="введите полное имя файла"/>
+                        </StackPanel>
+                    </Grid>
+                    <StackPanel Grid.Row="2">
+                        <Image Source="Resources/big-telegram_and_fox.png" Stretch="Fill" VerticalAlignment="Bottom"/>
+                        <Label x:Name="Label_Ver" Content="Версия приложения: " HorizontalAlignment="Center" VerticalAlignment="Top"  />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DockPanel>
+        
+        <Grid x:Name="LayoutData" Background="#BDBDBD" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="38"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <ListBox x:Name="usersList" Grid.Row="1" Margin="7,7,0,7" Focusable="False" IsTabStop="False" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="3" Padding="3" Cursor="Hand">
+                                <TextBlock Text="{Binding Nick}"/>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+            <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3" Background="#BDBDBD" HorizontalAlignment="Center" VerticalAlignment="Stretch" IsTabStop="False"/>
+            <DockPanel Grid.Column="2" LastChildFill="True">
+                <DockPanel LastChildFill="False" DockPanel.Dock="Bottom" Height="50" HorizontalAlignment="Stretch" Background="White" Margin="4,0,7,7" >
+                    <Button x:Name="Button_Send" HorizontalAlignment="Right" MaxWidth="39" DockPanel.Dock="Right" BorderThickness="0" Background="Transparent" IsTabStop="False">
+                        <Grid Margin="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="ico_sent_22x22_alfa.png" HorizontalAlignment="Right" >
+                                <Image.OpacityMask>
+                                    <ImageBrush ImageSource="ico_sent_22x22_alfa2.png"/>
+                                </Image.OpacityMask>
+                            </Image>
+                        </Grid>
+                        <Button.ToolTip>
+                            <ToolTip>
+                                Отправить сообщение
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+                    <TextBox x:Name="TextBox_Send" Text="" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" MinWidth="100" 
+                         TextWrapping="WrapWithOverflow" BorderThickness="0" Background="Transparent" KeyboardNavigation.IsTabStop="True" KeyboardNavigation.TabIndex="0" />
+                </DockPanel>
+                <ListBox x:Name="List_Msg" Width="auto" Margin="4,7,7,7" ItemsSource="{Binding ElementName=usersList, Path=SelectedItem.UserMessages}"  
+                     Focusable="False" IsTabStop="False"                    
+                     IsSynchronizedWithCurrentItem="True" Extenders:ListBoxExtenders.AutoScrollToCurrentItem="True" > <!--чтобы прыгать в конец списка, но не прыгвет-->
+                    <ListBox.Background>
+                        <ImageBrush ImageSource="Resources/background1.jpg"/>
+                    </ListBox.Background>
+                    <!--чтобы не было визуального выделения в виде прямоугольника-->
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <!--<Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}"/>-->
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate >
+                        <DataTemplate>
+                            <StackPanel Margin="3">
+                                <Border x:Name="List_Msg_Brd" Margin="7,5,7,3" BorderThickness="1" BorderBrush="SteelBlue" >
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="Gray" Direction="310" ShadowDepth="8" Opacity="0.4"></DropShadowEffect>
+                                    </Border.Effect>
+                                    <Border.Style>
+                                        <Style>
+                                            <Setter Property="Border.Padding" Value="12,4,12,4"></Setter>
+                                            <!--стиль отличия по направлению диалога-->
+                                            <Style.Triggers>
+                                                <DataTrigger Binding = "{Binding Path = MesDirect}" Value = "1">
+                                                    <Setter Property = "Border.Background" Value = "White"/>
+                                                    <Setter Property = "Border.CornerRadius" Value = "6,6,6,0" />
+                                                    <Setter Property = "Border.HorizontalAlignment" Value = "Left" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding = "{Binding Path = MesDirect}" Value = "2">
+                                                    <Setter Property = "Border.Background" Value = "#98FB98"/>
+                                                    <Setter Property = "Border.CornerRadius" Value = "6,6,0,6" />
+                                                    <Setter Property = "Border.HorizontalAlignment" Value = "Right" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+
+                                    </Border.Style>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="15"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="1" FontSize="10" Foreground="Gray" Text="{Binding Path=MesDateTime}" HorizontalAlignment="Right" />
+                                        <TextBlock Grid.Row="0" FontSize="16" Text="{Binding Path=MesText}" HorizontalAlignment="Left" TextWrapping="Wrap" MaxWidth="500"/>
+
+                                    </Grid>
+                                    <!--<TextBox FontSize="16" Text="{Binding Path=MesDirect}"></TextBox>-->
+
+                                </Border>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+
+        </Grid>
+    </Grid>
+</Window>
