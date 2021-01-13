@@ -29,6 +29,6 @@ Telegram Bot with database control
 
 ### Экраны уведомлений, сформированных Ботом
 
-![Screenshort3](https://github.com/AstiiCoder/FoxTelegramBot/blob/main/Resources/Images/screen_from_scanner.png?raw=true)
-![Screenshort3](https://github.com/AstiiCoder/FoxTelegramBot/blob/main/Resources/Images/screen_from_xeon.png?raw=true)
-![Screenshort3](https://github.com/AstiiCoder/FoxTelegramBot/blob/main/Resources/Images/screen_from_dept.png?raw=true)
+![Screenshort3](https://github.com/AstiiCoder/FoxTelegramBot/blob/main/Resources/Images/screen_from_scanner.png?raw=true)<br>
+![Screenshort4](https://github.com/AstiiCoder/FoxTelegramBot/blob/main/Resources/Images/screen_from_xeon.png?raw=true)<br>
+![Screenshort5](https://github.com/AstiiCoder/FoxTelegramBot/blob/main/Resources/Images/screen_from_dept.png?raw=true)
