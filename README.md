@@ -22,7 +22,13 @@ Telegram Bot with database control
  - Присылает сообщения из БД в группу
  - Проверяет сетевые ресурсы по списку и отправляет сообщение о их недоступности или плохому пингу
 
-### Внешний вид
+### Внешний вид приложения
 
 ![Screenshort1](https://raw.githubusercontent.com/AstiiCoder/FoxTelegramBot/main/screen1.png)
 ![Screenshort2](https://raw.githubusercontent.com/AstiiCoder/FoxTelegramBot/main/screen2.png)
+
+### Экраны уведомлений, сформированных Ботом
+
+![Screenshort3](https://github.com/AstiiCoder/FoxTelegramBot/blob/main/Resources/Images/screen_from_scanner.png?raw=true)
+![Screenshort3](https://github.com/AstiiCoder/FoxTelegramBot/blob/main/Resources/Images/screen_from_xeon.png?raw=true)
+![Screenshort3](https://github.com/AstiiCoder/FoxTelegramBot/blob/main/Resources/Images/screen_from_dept.png?raw=true)
